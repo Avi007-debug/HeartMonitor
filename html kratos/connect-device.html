@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Device</title>
+</head>
+<body>
+    <h1>Arduino Data</h1>
+    <p id="arduino-data">Waiting for data...</p>
+    <a href="index.html">Mainpage</a>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/data');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                document.getElementById('arduino-data').innerText = result.data;
+            } catch (error) {
+                document.getElementById('arduino-data').innerText = 'Error fetching data.';
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        setInterval(fetchData, 1000); // Fetch data every second
+    </script>
+</body>
+</html>
+

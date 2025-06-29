@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Heart Monitor</title>
+    <link rel="stylesheet" href="dropdown.css">
+</head>
+<body onload="checkSignInStatus()">
+    <header>
+        <marquee>Welcome!</marquee>
+        <nav>
+            <div class="nav-title">
+                <div class="dropdown">
+                    <button class="dropbtn"><img class="hamburger" src="Images/mainicon.png" style="height:15px;"></button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <div class="sub-dropdown">
+                            <a href="#">Account</a>
+                            <div class="sub-dropdown-content">
+                                <a href="account-signin.html">Sign In</a>
+                                <a href="account-signup.html">Sign Up</a>
+                            </div>
+                        </div>
+                        <a href="#" onclick="checkSignIn('index.html', 'connect-device.html')">Connect to Device</a>
+                        <a href="#" onclick="checkSignIn('index.html', 'history.html')">History</a>
+                    </div>
+                </div>
+                <span class="title-text">ELECTRIC HEART MONITOR</span>
+                <!-- Logout button -->
+                <button onclick="logout()">Logout</button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- General Information Section -->
+    <main>
+        <section class="general-info">
+            <h2>Welcome to Electric Heart Monitor</h2>
+            <p>The Electric Heart Monitor is designed to help you keep track of your heart’s health with ease and accuracy. Whether you are an athlete looking to monitor your performance or someone who wants to keep a close eye on their heart's condition, our device provides you with real-time data and history tracking.</p>
+
+            <h3>Features:</h3>
+            <ul>
+                <li>Real-time Heart Rate Monitoring</li>
+                <li>Detailed Heart Health Reports</li>
+                <li>Easy Device Connectivity</li>
+                <li>Secure Data Storage</li>
+                <li>Access to Historical Data</li>
+            </ul>
+
+            <h3>How It Works:</h3>
+            <ol>
+                <li>Sign in to your account.</li>
+                <li>Connect your heart monitor device.</li>
+                <li>Start tracking your heart rate and receive detailed insights.</li>
+                <li>View your history to monitor trends over time.</li>
+            </ol>
+
+            <p>With our user-friendly interface and advanced features, managing your heart health has never been easier. Start your journey to better heart health today!</p>
+        </section>
+    </main>
+    
+    <script src="script.js"></script>
+    <script>
+        function checkSignIn(notSignedInUrl, signedInUrl) {
+            const isSignedIn = localStorage.getItem('signedIn');
+            if (!isSignedIn) {
+                alert('Not signed in');
+                window.location.href = notSignedInUrl;
+            } else {
+                window.location.href = signedInUrl;
+            }
+        }
+
+        function checkSignInStatus() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('signin') || params.has('signup')) {
+                localStorage.setItem('signedIn', true);
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('signedIn'); // Remove sign-in status
+            alert('You have been logged out.');
+            window.location.href = 'account-signin.html'; // Redirect to sign-in page
+        }
+    </script>
+</body>
+</html>
